@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: minha-api-node
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeploy: false
+    envVars:
+      - key: PORT
+        value: 10000 
+      - key: DATABASE_URL
+        fromDatabase:
+          name: meu-banco-postgres
+          property: connectionString
+
+databases:
+  - name: meu-banco-postgres
+    databaseName: api_db
+    user: api_user
+    plan: free
