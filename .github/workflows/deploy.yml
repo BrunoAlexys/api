@@ -4,13 +4,13 @@ on:
   push:
     branches: 
       - main
-    pull_request:
-      branches: 
-        - main
+  pull_request:
+    branches: 
+      - main
 
 jobs:
   build:
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
@@ -19,8 +19,8 @@ jobs:
           cache: "npm"
       - run: npm install
 
-    deploy:
-      needs: build
-      runs-on: ubuntu-latest
-      steps:
-        - run: curl -X POST "${{ secrets.RENDER_HOOK_URL }}"
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl -X POST "${{ secrets.RENDER_HOOK_URL }}"
